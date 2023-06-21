@@ -47,7 +47,6 @@ public class Lexer {
     }
 
     Symbol symbol = Symbol.symbol(tokenString, Tokens.BogusToken);
-
     if (symbol == null) {
       System.out.println("******** illegal character: " + tokenString);
       atEOF = true;
@@ -156,11 +155,12 @@ public class Lexer {
     if (args.length > 0) {
       try {
         Lexer newLexer = new Lexer("sample_files/" + args[0].toString());
+        token = newLexer.nextToken();
 
-        while (true) {
-          token = newLexer.nextToken();
+        while (token != null) {
           System.out.println(evenString(token.getSymbol(), token.getLeftPosition(), token.getRightPosition(),
               token.getLineFound(), token.getKind().toString()));
+          token = newLexer.nextToken();
         }
 
       } catch (Exception e) {
