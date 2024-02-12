@@ -53,7 +53,7 @@ public class SourceReader {
       if (nextLine != null) {
         endLine += String.format("%3s" + ": " + nextLine + "\n", count);
         count++;
-        System.out.println("READLINE:   " + nextLine);
+        System.out.println("\nREADLINE:   " + nextLine);
       } else {
         System.out.println(" ");
         System.out.print(endLine);

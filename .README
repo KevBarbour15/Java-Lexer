@@ -1,0 +1,6 @@
+To run the Lexer for the X language: 
+
+>> javac lexer/setup/TokenSetup.java
+>> java lexer.setup.TokenSetup
+>> javac lexer/Lexer.java
+>> java lexer.Lexer filename.x

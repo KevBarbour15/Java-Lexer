@@ -26,6 +26,7 @@ public class TokenSetup {
   TokenSetup() {
     try {
       System.out.println("User's current working directory: " + System.getProperty("user.dir"));
+      System.out.println("Setting up tokens...");
       String sep = System.getProperty("file.separator");
 
       in = new BufferedReader(new FileReader("lexer" + sep + "setup" + sep + "tokens"));

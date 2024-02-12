@@ -1,5 +1,7 @@
 package lexer;
 
+import java.util.Scanner;
+
 public class Lexer {
   private boolean atEOF = false;
   private char ch;
@@ -152,22 +154,59 @@ public class Lexer {
   public static void main(String args[]) {
     Token token;
 
-    if (args.length > 0) {
+    boolean exit = false;
+    Scanner scanner = new Scanner(System.in);
+
+    while (!exit) {
+
+      System.out.println("Choose a file:");
+      System.out.println("1. codegen.x");
+      System.out.println("2. error.x");
+      System.out.println("3. factorial.x");
+      System.out.println("4. factorialErr.x");
+      System.out.println("5. fib.x");
+      System.out.println("6. scopes.x");
+      System.out.println("7. simple.x");
+      System.out.println("0. Exit");
+
+      int choice = 0;
+
       try {
-        Lexer newLexer = new Lexer("sample_files/" + args[0].toString());
-        token = newLexer.nextToken();
-
-        while (token != null) {
-          System.out.println(evenString(token.getSymbol(), token.getLeftPosition(), token.getRightPosition(),
-              token.getLineFound(), token.getKind().toString()));
-          token = newLexer.nextToken();
-        }
-
+        choice = scanner.nextInt();
       } catch (Exception e) {
-        System.out.println("******** exception *******" + e.toString());
+        System.out.println("Invalid input. Please enter a number.");
+        System.out.println("-----------------\n");
+        scanner.nextLine(); // Clear the input buffer
+        continue; // Restart the loop
       }
-    } else {
-      System.out.println("java lexer.Lexer\n" + "usage: java lexer.Lexer filename.x");
+
+      String[] fileNames = { "codegen.x", "error.x", "factorial.x", "factorialErr.x", "fib.x",
+          "scopes.x",
+          "simple.x", };
+
+      if (choice >= 1 && choice <= fileNames.length) {
+        try {
+          Lexer newLexer = new Lexer("sample_files/" + fileNames[choice - 1]);
+          token = newLexer.nextToken();
+
+          while (token != null) {
+            System.out.println(evenString(token.getSymbol(), token.getLeftPosition(), token.getRightPosition(),
+                token.getLineFound(), token.getKind().toString()));
+            token = newLexer.nextToken();
+          }
+
+          System.out.println("******** end of file ******* \n \n \n \n");
+        } catch (Exception e) {
+          System.out.println("******** exception *******" + e.toString());
+        }
+      } else if (choice == 0) {
+        exit = true;
+      } else {
+        System.out.println("Invalid choice.");
+        System.out.println("-----------------\n");
+      }
+
     }
+    scanner.close();
   }
 }
